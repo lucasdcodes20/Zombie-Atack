@@ -32,14 +32,14 @@ def rodar_jogo():
     # Variáveis do soldado
     estado_atual = ESTADO_PARADO
     frame_atual = 0
-    contador_animacao = 0
+    contador_animacao = 2
     velocidade_animacao = 10
     pos_x_player = 0
     pos_y_player = altura_janela - 128
     vel_soldier_player = 4
 
     # Cria o inimigo (canto inferior direito)
-    inimigo = Inimigo(largura_janela - 150, altura_janela - 128)
+    inimigo = Inimigo(largura_janela - 100, altura_janela - 120)
 
     clock = pygame.time.Clock()
     running = True

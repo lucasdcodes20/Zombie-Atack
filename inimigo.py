@@ -55,7 +55,7 @@ class Inimigo:
                 self.frame_atual = (self.frame_atual + 1) % len(self.frames_correr)
             else:
                 self.frame_atual = (self.frame_atual + 1) % len(self.frames_atacar)
-            self.contador_animacao = 0
+            self.contador_animacao = 5
 
     def desenhar(self, tela):
         if self.estado == self.ESTADO_PARADO:
