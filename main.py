@@ -1,15 +1,14 @@
 import pygame
 from comandos import *  # Importa tudo do arquivo Comandos.py
 from menu import Menu  # Importa a classe Menu
-from inimigo import Inimigo
+from inimigo import Inimigo  # Importa a classe Inimigo
 
 def rodar_jogo():
     # Configurações da janela
     largura_janela, altura_janela = 878, 494
     janela = pygame.display.set_mode([largura_janela, altura_janela])
-    
     pygame.display.set_caption('Doupo Xiao')
-    
+
     # Carrega as imagens
     try:
         imagem_fundo = pygame.image.load('asset/imagens/fundo maior.png')
@@ -19,19 +18,17 @@ def rodar_jogo():
         spritesheet_agachado = pygame.image.load('asset/imagens/agachado.png').convert_alpha()
         spritesheet_pulando = pygame.image.load('asset/imagens/Hurt.png').convert_alpha()
         spritesheet_correndo = pygame.image.load('asset/imagens/Run.png').convert_alpha()
-        
     except Exception as e:
         print(f"Erro ao carregar imagens: {e}")
         pygame.quit()
         exit()
-    # Dentro da função rodar_jogo(), após carregar as imagens do soldado:
-        inimigo = Inimigo(largura_janela - 128, altura_janela - 128)  # Canto inferior direito
+
     # Tamanho de cada frame nos spritesheets
     largura_frame_parado = 115
     altura_frame_parado = 128
     largura_frame_outros = 128
     altura_frame_outros = 128
-    
+
     # Número de frames de cada animação
     NUM_FRAMES_PARADO = 1
     NUM_FRAMES_ATIRANDO = 4
@@ -57,6 +54,9 @@ def rodar_jogo():
     pos_y_player = altura_janela - altura_frame_parado
     vel_soldier_player = 4
 
+    # Cria o inimigo (POSIÇÃO FIXA NO CANTO DIREITO INFERIOR)
+    inimigo = Inimigo(largura_janela - 128, altura_janela - 128)  # Adicionado aqui
+
     loop = True
 
     # Loop principal do jogo
@@ -71,7 +71,7 @@ def rodar_jogo():
 
         # Captura as teclas pressionadas
         teclas = pygame.key.get_pressed()
-        
+
         # Atualiza a posição e o estado do soldado
         pos_x_player, pos_y_player, estado_atual = atualizar_soldado(
             teclas, pos_x_player, pos_y_player, estado_atual, vel_soldier_player,
@@ -84,12 +84,15 @@ def rodar_jogo():
             frames_parado, frames_atirando, frames_agachado, frames_pulando, frames_correndo
         )
 
+        # Atualiza o inimigo (adicionado)
+        inimigo.atualizar()
+
         # Desenha o fundo (limpa a tela)
         janela.blit(imagem_fundo, (0, 0))
-        # No loop principal, antes de desenhar o soldado:   
-        inimigo.atualizar()
+
+        # Desenha o inimigo (adicionado antes do soldado)
         inimigo.desenhar(janela)
-        
+
         # Desenha o soldier na tela com a animação correspondente
         if estado_atual == ESTADO_PARADO:
             janela.blit(frames_parado[0], (pos_x_player, pos_y_player))
