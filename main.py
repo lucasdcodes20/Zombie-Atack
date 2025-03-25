@@ -1,4 +1,4 @@
-import pygame
+#import pygame
 from comandos import *
 from menu import Menu
 from inimigo import Inimigo
